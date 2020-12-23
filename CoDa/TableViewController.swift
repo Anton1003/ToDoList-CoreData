@@ -3,125 +3,100 @@ import CoreData
 
 class TableViewController: UITableViewController {
     
-    var tasks: [Tasks] = []
-    
+    var items = [Items]() // массив сохраненных ячеек
    
-    @IBAction func pushEditAction(_ sender: UIBarButtonItem) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let contex = appDelegate.persistentContainer.viewContext
-        
-        let fetcRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
-        if var tasks = try? contex.fetch(fetcRequest) {
-            for task in tasks {
-                contex.delete(task)
-            }
-        }
-        
-        
-        do {
-            try contex.save()
-            
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-        
-        tableView.reloadData()
-    }
+    let context = (UIApplication.shared.delegate as!  AppDelegate).persistentContainer.viewContext // доступ с базе данных
     
-    @IBAction func piusTasks(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Новая задача", message: "Введите задачу", preferredStyle: .alert)
-        
-        let saveTask = UIAlertAction(title: "Сохранить", style: .cancel) { action in
-            let tf = alertController.textFields?.first
-            if let newTask = tf?.text {
-                self.saveTask(withTitle: newTask)
-                self.tableView.reloadData()
-            }
-        }
-        
-        alertController.addTextField { _ in }
-        
-        let cancelAction = UIAlertAction(title: "Отмена", style: .default) { _ in }
-        
-        alertController.addAction(saveTask)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func saveTask(withTitle title: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let contex = appDelegate.persistentContainer.viewContext
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: "Tasks", in: contex) else { return }
-        
-        let taskObject = Tasks(entity: entity, insertInto: contex)
-        taskObject.title = title
-        
-        do {
-            try contex.save()
-            tasks.append(taskObject)
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-        
-    }
-    
-    func deleteTask(at index: Int) {
-        
-        
-    }
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let contex = appDelegate.persistentContainer.viewContext
-        
-        let fetcRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
-        
-        do {
-            tasks = try contex.fetch(fetcRequest)
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loadItems()
     }
 
-    // MARK: - Table view data source
+    // MARK: Количество ячеек и описание ячейки
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return items.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoreDataCell", for: indexPath)
-        
-        let task = tasks[indexPath.row]
-        cell.textLabel?.text = task.title
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
+        let item = items[indexPath.row]
+        cell.textLabel?.text = item.name
+        cell.accessoryType = item.completed ? .checkmark : .none
         return cell
     }
     
-
+    //MARK: Действия в таблице
     
-    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        items[indexPath.row].completed = !items[indexPath.row].completed
+        saveItem()
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
-
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete){
+            let item = items[indexPath.row]
+            items.remove(at: indexPath.row)
+            context.delete(item)
+            
+            do{
+                try context.save()
+            }catch{
+                print("Error deleting item with \(error)")
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    //MARK: Кпопка добавления новой записи и ее сохранение
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Save", style: .default) { (action) in
+            
+            let newItem = Items(context: self.context)
+            newItem.name = textField.text!
+            self.items.append(newItem)
+            self.saveItem()
+        }
+        alert.addAction(action)
+        alert.addTextField { (field) in
+            textField = field
+            textField.placeholder = "Add a New Item"
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    //MARK: - Сохранение и загрузка данных
+    func saveItem() {
+       
+        do{
+            try context.save()
+        }catch{
+            print("Error saving item with \(error)")
+        }
+        tableView.reloadData()
+    }
     
-   
+    func loadItems(){
+        let request: NSFetchRequest<Items> = Items.fetchRequest()
+        
+        do{
+            items = try context.fetch(request)
+        }catch{
+            print("Error fetching data from context \(error)")
+        }
+        
+        tableView.reloadData()
+    }
 }

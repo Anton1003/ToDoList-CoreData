@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoreDataCell" id="aTg-qN-Jrn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Item" id="aTg-qN-Jrn">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aTg-qN-Jrn" id="Pjk-NT-0Ft">
@@ -32,14 +32,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ToDo List" id="03f-BV-lb2">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="CaF-ei-aap">
-                            <connections>
-                                <action selector="pushEditAction:" destination="hTw-br-mY2" id="WI6-UW-W79"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="PVv-Pq-yJO">
                             <connections>
-                                <action selector="piusTasks:" destination="hTw-br-mY2" id="Sau-2N-YxN"/>
+                                <action selector="addButtonPressed:" destination="hTw-br-mY2" id="vRV-OR-fXt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -51,7 +46,6 @@
         <!--C-->
         <scene sceneID="4FI-0e-jYT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5cd-Hy-eIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="erK-Lr-htJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="C" id="DfP-lf-XbZ"/>
                     <toolbarItems/>
@@ -64,6 +58,7 @@
                         <segue destination="hTw-br-mY2" kind="relationship" relationship="rootViewController" id="PYy-z5-NAO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5cd-Hy-eIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="786.95652173913049" y="23.4375"/>
         </scene>
@@ -73,6 +68,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ulD-JU-Hyi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g7W-Vu-cHP">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

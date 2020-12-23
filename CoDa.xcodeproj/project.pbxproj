@@ -23,6 +23,7 @@
 		CE309217257FE69800D4A20D /* AlamWeatherCategoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE309216257FE69800D4A20D /* AlamWeatherCategoryLoader.swift */; };
 		CE309219257FE6A000D4A20D /* AlamWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE309218257FE6A000D4A20D /* AlamWeatherCell.swift */; };
 		CE30921E257FE6D500D4A20D /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30921D257FE6D500D4A20D /* WeatherCategory.swift */; };
+		CE53548C2593C154008F940B /* Item.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE53548A2593C154008F940B /* Item.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		CE309216257FE69800D4A20D /* AlamWeatherCategoryLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamWeatherCategoryLoader.swift; sourceTree = "<group>"; };
 		CE309218257FE6A000D4A20D /* AlamWeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamWeatherCell.swift; sourceTree = "<group>"; };
 		CE30921D257FE6D500D4A20D /* WeatherCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
+		CE53548B2593C154008F940B /* Item.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Item.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		CE3091B4257EAD6600D4A20D = {
 			isa = PBXGroup;
 			children = (
+				CE53548A2593C154008F940B /* Item.xcdatamodeld */,
 				CE3091BF257EAD6600D4A20D /* CoDa */,
 				CE3091D9257EAD6B00D4A20D /* CoDaTests */,
 				CE3091E4257EAD6B00D4A20D /* CoDaUITests */,
@@ -428,6 +431,7 @@
 				CE3091C1257EAD6600D4A20D /* AppDelegate.swift in Sources */,
 				CE3091C3257EAD6600D4A20D /* SceneDelegate.swift in Sources */,
 				CE30921E257FE6D500D4A20D /* WeatherCategory.swift in Sources */,
+				CE53548C2593C154008F940B /* Item.xcdatamodeld in Sources */,
 				CE3091FA257EADA100D4A20D /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -770,6 +774,16 @@
 			);
 			currentVersion = CE3091CA257EAD6600D4A20D /* CoDa.xcdatamodel */;
 			path = CoDa.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		CE53548A2593C154008F940B /* Item.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE53548B2593C154008F940B /* Item.xcdatamodel */,
+			);
+			currentVersion = CE53548B2593C154008F940B /* Item.xcdatamodel */;
+			path = Item.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
