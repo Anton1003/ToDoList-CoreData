@@ -1,7 +1,7 @@
 
 
 import Foundation
-
+// создаем структуры в которых прописываем ключи по которым будем получать нужные данные
 struct WeatherCategory: Codable {
     let timezone: String
     let daily: [Daily]
